@@ -1,38 +1,54 @@
 // import Button from "./Button";
 // import styles from "./App.module.css";
+import { number } from "prop-types";
 import { useState, useEffect } from "react";
 
 function App() {
-  const [toDo, setToDo] = useState("");
-  const [toDos, setToDos] = useState([]);
-  const onChange = (event) => setToDo(event.target.value);
-  const onSubmit = (event) => {
+  const [loding, setLoding] = useState(true);
+  const [coins, setCoins] = useState([]);
+  const [dollor, setDollor] = useState(0);
+  const [coinCost, setCoinCost] = useState(0);
+  useEffect(() => {
+    fetch("https://api.coinpaprika.com/v1/tickers")
+      .then((response) => response.json())
+      .then((json) => {
+        setCoins(json);
+        setLoding(false);
+      });
+  }, []);
+  //dollor
+  const dollorHandle = (event) => {
     event.preventDefault();
-    if (toDo == "") {
-      return;
-    }
-    setToDo("");
-    setToDos((currentArray) => [toDo, ...currentArray]);
+    setDollor(event.target.value);
   };
-  console.log(toDos);
+  //코인가격
+  const coinHandle = (event) => {
+    setCoinCost(event.target.value);
+  };
   return (
     <div>
-      <h1>My To Dos {toDos.length}</h1>
-      <form onSubmit={onSubmit}>
+      <h1>The Coins! {loding ? "" : `${coins.length}`}</h1>
+      {loding ? <strong>Loading...</strong> : null}
+
+      <form>
+        <h3>Please enter dollor</h3>
         <input
-          onChange={onChange}
-          value={toDo}
-          type="text"
-          placeholder="Write your to do....~!"
+          onChange={dollorHandle}
+          value={dollor}
+          input="number"
+          placeholder="Please enter dollor"
         />
-        <button>Add To Do</button>
       </form>
-      <hr />
-      <ul>
-        {toDos.map((item, index) => (
-          <li id={index}>{item}</li>
+
+      <select onChange={coinHandle}>
+        {coins.map((coin, index) => (
+          <option key={index} value={coin.quotes.USD.price}>
+            {coin.name} ({coin.symbol}){coin.quotes.USD.price} USD
+          </option>
         ))}
-      </ul>
+      </select>
+
+      <h3>You can get {Math.floor(dollor / coinCost)}</h3>
     </div>
   );
 }
