@@ -20,6 +20,10 @@ const rotateAnimation = keyframes`
 
   }`;
 
+const Emoji = styled.span`
+  font-size: 36px;
+`;
+
 const Box = styled.div`
   height: 200px;
   width: 200px;
@@ -27,32 +31,23 @@ const Box = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: ${rotateAnimation} 1s linear infinite;
-  span {
-    font-size: 36px;
-    &:hover {
-      //span:hover {}과 같음
-      font-size: 40px;
-    }
-    &:active {
-      //클릭하고 있을 때의 상태
-      opacity: 0;
-    }
+  animation: ${rotateAnimation} 2s linear infinite;
+  ${Emoji}:hover {
+    font-size: 40px;
   }
 `;
+
+//span -> Emoji로 컴포넌트해서 사용할 수 있음
 
 function App() {
   return (
     <Wrapper>
       <Box>
-        <span>😍</span>
+        <Emoji>😍</Emoji>
       </Box>
+      <Emoji>😍</Emoji>
     </Wrapper>
   );
 }
-
-//span의 부모 컴포넌트인 Box에서 span element를 조절할 수 있다
-// pseudeo select를 만들 수 있음
-//span:hover {}를 -> &:hover로 간단하게
 
 export default App;
