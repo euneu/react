@@ -20,6 +20,6 @@ function App() {
   );
 }
 
-//as -> 엘리먼트를 다른 엘리먼트로 교체할 수 있음
+//as -> 엘리먼트를 다른 엘리먼트로 교체할 수 있음!
 
 export default App;

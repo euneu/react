@@ -3,7 +3,6 @@ import styled from "styled-components";
 const Father = styled.div`
   display: flex;
 `;
-// back tick ``<< 이용
 
 const Box = styled.div`
   background-color: ${(props) => props.bgColor};
