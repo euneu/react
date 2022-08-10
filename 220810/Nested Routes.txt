@@ -1,6 +1,8 @@
 https://reactrouter.com/docs/en/v6/getting-started/overview
 공식 문서 참고
 
+1. Route 연결
+
 function App() {
   return (
     <Routes>
@@ -24,3 +26,62 @@ function Dashboard() {
 
 버전 6 이상일시 Route 연결할 때 참고
 !! 상위 경로의 끝에 *를 넣어야 함 주의 !!
+
+
+
+2. Link 
+ 버전 6부터는 내부에서 랜더링 되기 때문에 
+/dashboard/invoices​​및 /dashboard/team
+를 이렇게 작성함 (pramas를 넣어줄 필요가 없어짐)
+
+function Dashboard() {
+  return (
+    <div>
+      <h1>Dashboard</h1>
+      <nav>
+        <Link to="invoices">Invoices</Link>{" "}
+        <Link to="team">Team</Link>
+      </nav>
+      <hr />
+      <Outlet />
+    </div>
+  );
+}
+
+function Invoices() {
+  return <h1>Invoices</h1>;
+}
+
+function Team() {
+  return <h1>Team</h1>;
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="dashboard" element={<Dashboard />}>
+        <Route path="invoices" element={<Invoices />} />
+        <Route path="team" element={<Team />} />
+      </Route>
+    </Routes>
+  );
+}
+
+-> 내가 쓰는 예제에서는
+<Link to={`/${coinId}/price`}>Price</Link>
+이걸 그냥
+<Link to="price">price</Link>
+이렇게 해주면 됨
+
+3. useMatch(~~~)
+~~~ <- 요 안의 경로로 접속했을 때 일치 데이터를 반환해줌
+tab css에 isActive : boolen를 추가로 입력해주어서
+<Tab isActive={chartMatch !== null}> (const chartMatch = useMatch("/:coinId/chart");)
+charMatch로 접속해서 데이터가 반환 되어 null값이 아니게 될 경우
+isAtcive == true -> css 적용됨
+
+color: ${(props) =>
+    props.isActive ? props.theme.accentColor : props.theme.textColor};
+이 구문 또한 isAcitve 기능을 사용하여 
+price를 클릭했을 때 accentColor가 나오도록 해준다
