@@ -1,0 +1,26 @@
+https://reactrouter.com/docs/en/v6/getting-started/overview
+공식 문서 참고
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="dashboard/*" element={<Dashboard />} />
+    </Routes>
+  );
+}
+
+function Dashboard() {
+  return (
+    <div>
+      <p>Look, more routes!</p>
+      <Routes>
+        <Route path="/" element={<DashboardGraphs />} />
+        <Route path="invoices" element={<InvoiceList />} />
+      </Routes>
+    </div>
+  );
+}
+
+버전 6 이상일시 Route 연결할 때 참고
+!! 상위 경로의 끝에 *를 넣어야 함 주의 !!
