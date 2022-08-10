@@ -1,0 +1,17 @@
+useQuery hook
+
+const { isLoading, data } = useQuery(["allCoins"], fetchCoins);
+
+export function fetchCoins() {
+  return fetch("https://api.coinpaprika.com/v1/coins").then((response) =>
+    response.json()
+  );
+}
+
+내 fetcher 함수를 부름 (ex. fetchCoins)
+fetcher함수가 loading 중이라면 react query는 알려줌(ex, isLoading 여기에)
+fetcher함수가 끝나면 react query는 json을 data에 넣어줌
+
+홈화면에서 코인 화면으로 넘어갔다가
+다시 홈화면으로 가면 loading 화면이 보였는데
+보이지 않은 이유는 react query가 데이터를 캐시에 저장해두기 때문
