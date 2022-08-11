@@ -1,0 +1,11 @@
+refetchInterval : ~~~~
+~~~ 마다 최신 데이터를 가져오기 위해 쿼리가 실행된다
+
+helmet
+import { Helmet } from "react-helmet-async";
+
+< Helmet >
+< title >Chart< / title >
+< / Helmet >
+
+이렇게 하면 helmet 을 바꿀 수 있음~!
