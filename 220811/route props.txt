@@ -1,0 +1,3 @@
+리액트 라우터 v6 이상에서
+Route로 props 전달할때
+<Route path="chart" element={<Chart coinId={coinId as string} />} />
