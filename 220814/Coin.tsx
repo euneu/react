@@ -169,11 +169,7 @@ interface IPriceData {
   };
 }
 
-interface ICoinProps {
-  isDarkMode: boolean;
-}
-
-function Coin({ isDarkMode }: ICoinProps) {
+function Coin() {
   const { coinId } = useParams();
 
   //react-router-dom v6 부터 제네릭을 지원하지 않아서 이렇게 작성해야함
@@ -256,9 +252,7 @@ function Coin({ isDarkMode }: ICoinProps) {
             <Routes>
               <Route
                 path="chart"
-                element={
-                  <Chart isDarkMode={isDarkMode} coinId={coinId as string} />
-                }
+                element={<Chart coinId={coinId as string} />}
               />
               <Route
                 path="price"

@@ -2,8 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { fetchCoins } from "../api";
+import { isDarkAtom } from "../atom";
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -87,11 +89,10 @@ interface Icoin {
   type: string;
 }
 
-interface ICoinsProps {
-  toggleDarkMode: () => void;
-}
-
-function Coins({ toggleDarkMode }: ICoinsProps) {
+function Coins() {
+  const setDarkAtom = useSetRecoilState(isDarkAtom);
+  //atom state 값을 업데이트하기 위해
+  const toggleDarkAtom = () => setDarkAtom((prev) => !prev);
   const { isLoading, data } = useQuery<Icoin[]>(["allCoins"], fetchCoins);
 
   return (
@@ -101,7 +102,7 @@ function Coins({ toggleDarkMode }: ICoinsProps) {
       </Helmet>
       <Header>
         <Title>CRYPTO TRACKER</Title>
-        <button onClick={toggleDarkMode}></button>
+        <button onClick={toggleDarkAtom}>Toggle Mode</button>
       </Header>
       {isLoading ? (
         <Loader>Loading...</Loader>
@@ -125,3 +126,4 @@ function Coins({ toggleDarkMode }: ICoinsProps) {
 }
 
 export default Coins;
+s;
