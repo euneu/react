@@ -75,28 +75,6 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const ThemChange = styled.div`
-  display: block;
-  font-size: 25px;
-  padding: 10px;
-  background-color: ${(props) => props.theme.containerColor};
-  color: ${(props) => props.theme.accentColor};
-  position: fixed;
-  left: 1rem;
-  top: 1rem;
-  border-radius: 50%;
-  border: none;
-  a {
-    transition: all 0.2s;
-  }
-  &:hover {
-    cursor: pointer;
-    a {
-      color: ${(props) => props.theme.accentColor};
-    }
-  }
-`;
-
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const toggleDarkMode = () => {
@@ -106,11 +84,8 @@ function App() {
     // <> </> -> Framgment 라고 불리는 유령 컴포넌트 div 를 대신해서 부모 없이 서로 붙어있을 수 있게 해줌
     <>
       <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-        <ThemChange onClick={toggleDarkMode}>
-          {isDarkMode ? <BsSunFill /> : <BsMoonFill />}
-        </ThemChange>
         <GlobalStyle />
-        <Router />
+        <Router isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
         <ReactQueryDevtools initialIsOpen={true}></ReactQueryDevtools>
       </ThemeProvider>
     </>
