@@ -23,12 +23,37 @@ import { useForm } from "react-hook-form";
 //   );
 // }
 
+interface IFormData {
+  errors: {
+    email: {
+      message: string;
+    };
+  };
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  username: string;
+}
+
+//pattern에 정규식 넣어서 확인하기
+//에러메세지 span으로 꺼내주기
+//입력창에 기본값 넣어주기
 function ToDoList() {
-  const { register, watch, handleSubmit, formState } = useForm();
+  const {
+    register,
+    watch,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormData>({
+    defaultValues: {
+      email: "@naver.com",
+    },
+  });
   const onVaild = (data: any) => {
     console.log(data);
   };
-  console.log(formState.errors);
+  console.log(errors);
   console.log(watch());
   return (
     <div>
@@ -36,15 +61,29 @@ function ToDoList() {
         style={{ display: "flex", flexDirection: "column" }}
         onSubmit={handleSubmit(onVaild)}
       >
-        <input {...register("Email", { required: true })} placeholder="Email" />
+        <input
+          {...register("email", {
+            required: "Email required",
+            pattern: {
+              value: /^[A-Za-z0-9._%+-]+@naver.com$/,
+              message: "naver주소만 가능합니다",
+            },
+          })}
+          placeholder="Email"
+        />
+        <span>{errors?.email?.message}</span>
         <input
           {...register("firstName", { required: true })}
           placeholder="First Name"
         />
+        <span>{errors?.firstName?.message}</span>
+
         <input
           {...register("lastName", { required: true })}
           placeholder="Last Name"
         />
+        <span>{errors?.lastName?.message}</span>
+
         <input
           {...register("username", {
             required: true,
@@ -52,6 +91,8 @@ function ToDoList() {
           })}
           placeholder="Username"
         />
+        <span>{errors?.username?.message}</span>
+
         <input
           {...register("password", {
             required: "Password is required",
@@ -59,6 +100,8 @@ function ToDoList() {
           })}
           placeholder="Password"
         />
+        <span>{errors?.password?.message}</span>
+
         <button>Add</button>
       </form>
     </div>
