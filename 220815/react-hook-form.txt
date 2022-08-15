@@ -1,0 +1,4 @@
+React Hook Form
+register 함수 <- onChange이벤트 핸들러 같은 이벤트 모두를 대처해줌
+onblur : input 밖을 클릭할 때
+watch : form의 입력값들의 변화를 관찰할 수 있게 해주는 함수
