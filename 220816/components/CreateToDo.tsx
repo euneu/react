@@ -6,8 +6,6 @@ interface Ifrom {
   ToDo: string;
 }
 
-//option의 카테고리에 맞게 바로 todo가 저장됨
-// doing에 두고 추가하면 doing으로 바로 저장되는
 function CreateToDo() {
   const setToDos = useSetRecoilState(toDostate);
   const category = useRecoilValue(categoryState);
